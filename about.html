@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Ankita Badade</title>
+  <meta name="description" content="About Ankita Badade — a designer interested in how people behave, how systems work, and how the two come together.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23000000'/><rect x='4' y='4' width='8' height='8' fill='%23ff5500'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter+Tight:wght@400;500;600;700&family=Instrument+Sans:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');try{var t=sessionStorage.getItem('ankita:transition');if(t&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('is-arriving');document.documentElement.dataset.pt=t}}catch(e){}</script>
+</head>
+<body class="about-page">
+  <a class="skip" href="#more">Skip to content</a>
+  <header class="nav" data-nav data-mode="light">
+    <a class="nav__logo" href="index.html" aria-label="Ankita Badade — home"><span class="nav__name"><strong>Ankita Badade</strong></span></a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a href="#" data-resume>Resume</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 1. Opening: a point grid that maps how I work -->
+    <section class="pg" data-theme="dark" aria-labelledby="pg-title" data-pg>
+      <canvas class="pg__canvas" aria-hidden="true"></canvas>
+      <div class="pg__intro">
+        <h1 class="pg__title" id="pg-title" data-statement></h1>
+        <p class="pg__role" data-role></p>
+      </div>
+      <div class="pg__labels" data-labels aria-label="How I work"></div>
+      <p class="pg__phrase" data-phrase aria-live="polite"></p>
+    </section>
+
+
+    <!-- 2. Written introduction -->
+    <section class="more" id="more" data-theme="dark" aria-labelledby="more-title">
+      <!-- an editorial spread on the 12-column grid: meta row, photo beside the heading, then notes -->
+      <div class="wrap ed">
+        <p class="ed__tag ed__tag--l reveal">A closer look<br><b>How I think &amp; what I make</b></p>
+        <p class="ed__tag ed__tag--r reveal"><span class="ed__arrow ed__arrow--left" aria-hidden="true">→</span><span>MDes · IIT Delhi<br><b>Product &amp; Experience Designer</b></span></p>
+
+        <figure class="ed__photo reveal" data-photo>
+          <div class="ed__frame"><div class="ed__ph">Photo coming soon</div></div>
+          <figcaption class="ed__tag"><b data-photo-label></b> <i class="ed__script" data-photo-caption></i></figcaption>
+        </figure>
+        <div class="ed__head">
+          <h2 class="ed__title reveal" id="more-title" data-more-title></h2>
+          <div class="ed__lead">
+            <span class="ed__arrow reveal" aria-hidden="true">→</span>
+            <p class="ed__note reveal" data-more-lead></p>
+          </div>
+        </div>
+
+        <div class="ed__aside">
+          <p class="ed__italic reveal" data-more-italic></p>
+          <span class="ed__arrow reveal" aria-hidden="true">→</span>
+        </div>
+        <p class="ed__note ed__note--block reveal" data-more-aside></p>
+      </div>
+
+      <div class="wrap more__grid more__journey">
+        <h3 class="more__jtitle" data-journey-title></h3>
+        <ol class="plain journey" data-journey></ol>
+      </div>
+
+      <nav class="wrap more__next" aria-label="Where next">
+        <a href="index.html#work"><span class="mono">Next</span><strong>See the work →</strong></a>
+        <a href="index.html#contact"><span class="mono">Or</span><strong>Say hello →</strong></a>
+      </nav>
+    </section>
+  </main>
+
+  <script type="module" src="js/about.js"></script>
+</body>
+</html>

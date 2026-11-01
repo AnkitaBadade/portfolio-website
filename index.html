@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ankita — Design, research &amp; creative code</title>
+  <meta name="description" content="Portfolio of Ankita — UX research, interaction and strategic design, visual communication, ethnography and creative coding.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23000000'/><rect x='4' y='4' width='8' height='8' fill='%23ff5500'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Instrument+Sans:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');try{var t=sessionStorage.getItem('ankita:transition');if(t&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('is-arriving');document.documentElement.dataset.pt=t}}catch(e){}</script>
+</head>
+<body class="home">
+  <a class="skip" href="#intro">Skip to content</a>
+
+  <header class="nav" data-nav data-mode="dark">
+    <a class="nav__logo" href="#top" aria-label="Ankita Badade — back to top"><span class="nav__name"><strong>Ankita Badade</strong></span></a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href="#top">Home</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#" data-resume>Resume</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="top" data-hero aria-label="Greeting">
+      <div class="hero__sticky">
+        <canvas class="hero__canvas" aria-hidden="true"></canvas>
+        <p class="greet"><span class="sr-only">Hello</span><span class="greet__mark" aria-hidden="true"></span><span class="greet__clip" aria-hidden="true"><span class="greet__word">Hello</span></span></p>
+        <div class="hero__meta">
+          <p class="hero__hint mono" aria-hidden="true"><i></i><i></i><i></i><span class="hint-fine">Catch a falling block</span><span class="hint-touch">Catch a falling block</span></p>
+          <p class="hero__scroll mono">Scroll <span aria-hidden="true">↓</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="intro" id="intro" aria-labelledby="intro-title">
+      <div class="wrap">
+        <h1 class="intro__title" id="intro-title" data-intro-title>I'm Ankita.</h1>
+        <div class="intro__body">
+          <div class="intro__text">
+            <div data-intro-lines></div>
+            <p class="mono intro__hint"><span class="hint-fine">Move through the field →</span><span class="hint-touch">Tap the field ↓</span></p>
+          </div>
+          <div class="field" data-field>
+            <canvas aria-hidden="true"></canvas>
+            <ul class="field__labels" data-disciplines aria-label="Areas of work"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="work" id="work" aria-labelledby="work-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="mono work__kicker">Selected work</p>
+          <h2 id="work-title">Pieces that <span class="fit-word" aria-label="fit."><b>f</b><b>i</b><b>t</b></span>.</h2>
+        </header>
+        <div class="work__list" data-projects></div>
+      </div>
+    </section>
+
+    <section class="play" id="play" aria-labelledby="play-title">
+      <div class="wrap">
+        <header class="section-head section-head--play">
+          <h2 id="play-title">All Work &amp; No <span class="play-word" aria-label="Play?"><b>P</b><b>l</b><b>a</b><b>y</b><b>?</b></span></h2>
+          <p>A little collection of projects I’m working on, vibe‑coding experiments and brainchildren. Some works in progress, some just-for-fun explorations. Hover around and have a look!</p>
+        </header>
+        <div class="exp-grid" data-experiments></div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" data-theme="dark" aria-labelledby="contact-title">
+      <div class="wrap">
+        <p class="mono contact__kicker">Made it all the way here?</p>
+        <div class="reveal"><h2 class="contact__title" id="contact-title">We should probably<br><mark class="contact__hi">say hello!</mark></h2></div>
+        <p class="contact__lede reveal">I’m always up for interesting conversations, new ideas and exciting projects.</p>
+        <div class="contact__row reveal">
+          <p class="contact__email" data-email></p>
+          <ul class="plain contact__links" data-links></ul>
+        </div>
+      </div>
+      <canvas class="contact__blocks" data-blocks aria-hidden="true"></canvas>
+      <footer class="wrap footer mono">
+        <span class="footer__made">Designed with <svg class="heart" viewBox="0 0 24 24" aria-label="love" role="img"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 7 4.5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.6 0 5.6 3.5 4.3 6.8-1.8 4.6-9.3 9.2-9.3 9.2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg> (and many, many tabs open)</span>
+        <a href="#top">Back to top ↑</a>
+      </footer>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

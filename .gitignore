@@ -1,0 +1,12 @@
+# private working files (not part of the site)
+chat_transcript.html
+generate_transcript.mjs
+.claude/
+
+# dependencies and system clutter
+node_modules/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+.vercel
