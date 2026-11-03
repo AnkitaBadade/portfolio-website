@@ -1320,3 +1320,15 @@ a, button, canvas { -webkit-tap-highlight-color: transparent; }
   .exp__title, .exp--feature .exp__title { font-size: 15px; }
   .exp-grid .exp:nth-child(n) .exp__desc { width: 180px; }
 }
+
+/* Field on phones and tablets: same as a laptop. Labels live inside the field and appear near your finger */
+@media (max-width: 960px) {
+  .field { display: block; height: min(100vw, 520px); }
+  .field canvas { position: absolute; height: 100%; }
+  .field__labels { position: absolute; display: block; }
+  .field__labels li { position: absolute; font-size: 11px; }
+}
+@media (pointer: coarse) {
+  .field__labels li { pointer-events: none; }
+  .field__labels li:not(.on) { opacity: 0; transform: scale(.7); filter: blur(6px); }
+}
