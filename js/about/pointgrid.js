@@ -343,6 +343,7 @@ export function createPointGrid(root, { clusters }) {
 
   /* ---------- input: text only where the pointer is ---------- */
   root.addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'touch') return;             // touch uses tap, below
     const b = canvas.getBoundingClientRect();
     pointer = { x: e.clientX - b.left, y: e.clientY - b.top };
     let k = -1;
@@ -355,7 +356,7 @@ export function createPointGrid(root, { clusters }) {
     const b = canvas.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
     let best = -1, bd = 1e9;
     groups.forEach((gp, k) => { const d = Math.hypot(gp.x - x, gp.y - y); if (d < gp.rad + g * 3 && d < bd) { bd = d; best = k; } });
-    if (best >= 0) { setNear(best); go(best, true); }
+    if (best >= 0) { if (!coarse) setNear(best); go(best, true); }
   });
 
   /* ---------- start ---------- */

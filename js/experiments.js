@@ -1,4 +1,4 @@
-import { fitCanvas, rng, reducedMotion } from './util.js';
+import { fitCanvas, rng, reducedMotion, isCoarse } from './util.js';
 
 /* Tiny generative sketches used as experiment previews.
    Each draws a static frame; animation runs only on hover/focus/tap. */
@@ -118,7 +118,8 @@ export function initExperiments(container) {
     tile.addEventListener('pointerleave', (e) => e.pointerType === 'mouse' && stop());
     tile.addEventListener('focusin', start);
     tile.addEventListener('focusout', stop);
-    tile.addEventListener('pointerup', (e) => { if (e.pointerType !== 'mouse') (raf ? stop() : start()); });
+    // no hover on touch screens: each sketch plays while it is on screen
+    if (isCoarse()) new IntersectionObserver(([e]) => (e.isIntersecting ? start() : stop()), { threshold: 0.4 }).observe(tile);
     new ResizeObserver(size).observe(canvas);
   });
 }

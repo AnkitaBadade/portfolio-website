@@ -1260,3 +1260,63 @@ h1, h2, h3, .proj__title, .case-hero__title, .contact__title, .ed__title, .intro
 .intro__text p { font-size: clamp(18px, 1.4vw, 21px); line-height: 1.45; }
 .proj__desc, .proj:nth-child(n) .proj__desc { font-size: 17px; }
 .intro__text .intro__hint, .intro__hint { font-size: 11px; letter-spacing: .06em; line-height: 1.2; }
+
+/* ---------- Touch screens: every hover effect has a touch version; nothing stays stuck after a tap ---------- */
+a, button, canvas { -webkit-tap-highlight-color: transparent; }
+@media (hover: none) {
+  /* nav: your name's changing icon and the current page's icon are always on */
+  .nav__logo .nav__px--me { width: 15px; margin-right: 8px; opacity: 1; }
+  .nav__links a[aria-current="page"] .nav__px { width: 13px; margin-right: 6px; opacity: 1; }
+  /* cancel hover states that would stick after a tap; press feedback instead */
+  .nav__links a:hover .roll__row span { transform: none; }
+  .proj__link:hover .proj__title, .case-next a:hover strong, .case-next a:last-child:hover strong { transform: none; }
+  .proj__link:hover .proj__cta, .proj:nth-child(n) .proj__link:hover .proj__cta { background: var(--ink); color: var(--paper); }
+  .proj__link:hover .proj__cta i { transform: none; }
+  .proj__link:active .proj__cta, .proj:nth-child(n) .proj__link:active .proj__cta { background: var(--pink); color: var(--ink); }
+  .proj__link:active .proj__cta i { transform: translateX(4px); }
+  .proj__link:active .proj__media img { --s: 1.03; }
+  .contact__hi:hover { transform: rotate(-2deg); background: var(--pink); }
+  .contact__hi:active { transform: rotate(1.5deg) scale(1.03); background: var(--green); }
+  .contact__links a:hover { color: inherit; background: none; border-color: rgba(255, 255, 255, .22); }
+  .contact__links a:active { color: var(--dark); background: var(--green); border-color: var(--green); }
+  .exp:active .exp__media { transform: scale(.98); }
+  .exp__media::after { display: none; }
+}
+/* large touch screens (tablets in landscape) use the board layout: descriptions can't wait for a hover */
+@media (hover: none) and (min-width: 961px) {
+  .exp-grid { min-height: 680px; max-height: none; }
+  .exp__desc, .exp--feature .exp__desc { position: static; width: auto; opacity: 1; transform: none; margin-top: 0; font-size: 12px; }
+}
+/* ---------- Phones: a nav that fits on one line ---------- */
+.nav__name strong, .nav__links a { white-space: nowrap; }
+@media (max-width: 480px) {
+  .nav__name strong { font-size: 15px; }
+  .nav__links { gap: 12px; }
+  .nav__links a { font-size: 13px; }
+  .nav__links a[aria-current="page"] .nav__px { display: none; }
+}
+@media (max-width: 350px) {
+  .nav__logo .nav__px--me { display: none; }
+  .nav__name strong { font-size: 14px; }
+  .nav__links { gap: 9px; }
+  .nav__links a { font-size: 12px; }
+}
+.intro__hint { white-space: nowrap; }
+
+/* Play on large touch screens: a tidy grid with descriptions showing (nothing here can wait for a hover) */
+@media (hover: none) and (min-width: 961px) {
+  .exp-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px var(--gap); min-height: 0; max-height: none; }
+  .exp-grid .exp.exp, .exp-grid .exp.exp--feature { grid-column: auto; position: relative; left: auto; top: auto; display: block; width: auto; translate: none; }
+  .exp-grid .exp .exp__media { width: 100%; height: auto; aspect-ratio: 3 / 2; }
+  .exp-grid .exp:nth-child(n) .exp__info { position: static; width: auto; padding-top: 14px; justify-items: start; text-align: left; }
+  .exp-grid .exp:nth-child(n) .exp__desc { position: static; width: auto; opacity: 1; transform: none; margin-top: 0; font-size: 14px; }
+  .exp-grid .bit { display: none; }
+}
+/* Play on small laptops: the same board with smaller tiles, so nothing collides or runs off */
+@media (hover: hover) and (min-width: 961px) and (max-width: 1199px) {
+  .exp-grid .exp .exp__media { width: 118px; }
+  .exp-grid .exp:nth-child(n) .exp__info { width: 136px; }
+  .exp-grid .exp { gap: 12px; }
+  .exp__title, .exp--feature .exp__title { font-size: 15px; }
+  .exp-grid .exp:nth-child(n) .exp__desc { width: 180px; }
+}

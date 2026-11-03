@@ -87,7 +87,12 @@ export function initNav(site, { getHeroDark } = {}) {
       window.__navGlide = { reaim: () => L.scrollTo(where(), { duration: 1.4, easing: (t) => 1 - Math.pow(1 - t, 3), force: true, onComplete: done }) };
       L.scrollTo(y, { duration: dur, easing: glide, force: true, onComplete: done });
     }
-    else scrollTo({ top: y, behavior: 'smooth' });
+    else {
+      const where = () => (target === 0 ? 0 : target.getBoundingClientRect().top + scrollY - 72);
+      window.__navGlide = { reaim: () => scrollTo({ top: where(), behavior: 'smooth' }) };
+      setTimeout(() => { window.__navGlide = null; }, 3000);
+      scrollTo({ top: y, behavior: 'smooth' });
+    }
     history.replaceState(null, '', url.hash === '#top' ? location.pathname : url.hash);
   });
 

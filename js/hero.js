@@ -446,6 +446,7 @@ export function initHero(root, { greetings, onProgress }) {
       held = null; grab = null;
       canvas.style.cursor = '';
     };
+    canvas.addEventListener('touchstart', (e) => { if (pieceAt(local(e.touches[0]))) e.preventDefault(); }, { passive: false });
     canvas.addEventListener('pointerup', release);
     canvas.addEventListener('pointercancel', release);
   }

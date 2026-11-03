@@ -1,4 +1,4 @@
-import { COLORS, clamp, fitCanvas, rng, reducedMotion } from './util.js';
+import { COLORS, clamp, fitCanvas, rng, reducedMotion, isCoarse } from './util.js';
 
 const FILLS = [COLORS.lavender, COLORS.orange, COLORS.yellow, COLORS.green];
 const LETTERS = 'ANKITAUXANKITA';
@@ -14,6 +14,8 @@ export function createField(container, labelsEl, disciplines) {
   const R = 115;
   let ctx, W, H, parts = [], labels = [], raf = 0, visible = false;
   const ptr = { x: -9999, y: -9999, active: false, until: 0 };
+  const coarse = isCoarse();
+  let touching = false, idleFrom = 0;                  // on touch screens a soft "ghost finger" wanders until you touch
 
   // Real, readable text labels positioned around the field.
   const POS = [[2, 4], [56, 8], [26, 22], [68, 32], [4, 46], [46, 56], [18, 72], [62, 80], [6, 92]];
@@ -56,6 +58,12 @@ export function createField(container, labelsEl, disciplines) {
 
   function step() {
     const now = performance.now();
+    if (coarse && !touching && now > idleFrom && !reduced) {
+      const t = now / 1000;
+      ptr.x = W * (0.5 + 0.36 * Math.sin(t * 0.55));
+      ptr.y = H * (0.5 + 0.36 * Math.sin(t * 0.83 + 1));
+      ptr.until = now + 200;
+    }
     const active = ptr.active || now < ptr.until;
     let moving = false;
     for (const p of parts) {
@@ -83,11 +91,13 @@ export function createField(container, labelsEl, disciplines) {
       if (p.kind === 'arrow') p.rot += (Math.atan2(ptr.y - p.y, ptr.x - p.x) - p.rot) * 0.08 * p.heat;
       if (p.heat > 0.01 || Math.abs(p.vx) + Math.abs(p.vy) > 0.02 || Math.abs(p.x - p.hx) > 0.3) moving = true;
     }
-    for (const l of labels) {
-      const on = active && Math.hypot(l.x - ptr.x, l.y - ptr.y) < 110;
+    const stacked = labels[0] && getComputedStyle(labels[0].li).position === 'static'; // labels sit below the field here
+    const beat = Math.floor(now / 1100) % (labels.length || 1);
+    for (const [i, l] of labels.entries()) {
+      const on = stacked ? active && i === beat : active && Math.hypot(l.x - ptr.x, l.y - ptr.y) < 110;
       if (on !== l.on) { l.on = on; l.li.classList.toggle('on', on); }
     }
-    return moving || active;
+    return moving || active || coarse;
   }
 
   function draw() {
@@ -152,14 +162,19 @@ export function createField(container, labelsEl, disciplines) {
     wake();
   });
   container.addEventListener('pointerleave', () => { ptr.active = false; wake(); });
-  // Touch / pen: tap to gather a cluster that then settles.
-  container.addEventListener('pointerdown', (e) => {
-    if (e.pointerType === 'mouse') return;
-    const p = local(e);
+  // Touch: the cluster follows your finger, even while the page scrolls, then lingers after you let go.
+  const fromTouch = (e) => {
+    const p = local(e.touches[0]);
     if (!p.inside) return;
-    ptr.x = p.x; ptr.y = p.y; ptr.active = false; ptr.until = performance.now() + 900;
+    touching = true;
+    ptr.x = p.x; ptr.y = p.y; ptr.active = true;
     wake();
-  });
+  };
+  container.addEventListener('touchstart', fromTouch, { passive: true });
+  container.addEventListener('touchmove', fromTouch, { passive: true });
+  const lift = () => { touching = false; ptr.active = false; ptr.until = performance.now() + 1400; idleFrom = performance.now() + 3000; wake(); };
+  container.addEventListener('touchend', lift);
+  container.addEventListener('touchcancel', lift);
 
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) wake(); }).observe(container);
   let rt;

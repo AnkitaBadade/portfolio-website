@@ -167,6 +167,12 @@ function playBoard(board) {
     aim(((e.clientX - b.left) / b.width) * 2 - 1, ((e.clientY - b.top) / b.height) * 2 - 1);
   });
   board.addEventListener('pointerleave', () => aim(0, 0));
+  // touch screens have no cursor to follow, so the board sways by itself while it is on screen
+  if (matchMedia('(pointer: coarse)').matches) {
+    let on = false;
+    const sway = (now) => { if (!on) return; aim(Math.sin(now / 1700), Math.cos(now / 2300)); requestAnimationFrame(sway); };
+    new IntersectionObserver(([e]) => { const was = on; on = e.isIntersecting; if (on && !was) requestAnimationFrame(sway); }).observe(board);
+  }
 }
 initMotion();
 initScrollChrome();
@@ -246,7 +252,13 @@ function contactBlocks(canvas) {
 
   canvas.style.cursor = 'pointer';
   canvas.addEventListener('pointermove', (e) => { px = Math.floor((e.clientX - canvas.getBoundingClientRect().left) / c); live = true; kick(); });
-  canvas.addEventListener('pointerleave', () => { px = -1; live = false; kick(); });
+  canvas.addEventListener('pointerleave', (e) => { if (e.pointerType === 'touch') return; px = -1; live = false; kick(); });
+  // touch: the wave follows your finger, then settles after you let go
+  let settle = 0;
+  const fromTouch = (e) => { clearTimeout(settle); px = Math.floor((e.touches[0].clientX - canvas.getBoundingClientRect().left) / c); live = true; kick(); };
+  canvas.addEventListener('touchstart', fromTouch, { passive: true });
+  canvas.addEventListener('touchmove', fromTouch, { passive: true });
+  canvas.addEventListener('touchend', () => { settle = setTimeout(() => { px = -1; live = false; kick(); }, 500); });
   canvas.addEventListener('click', (e) => {
     if (!landed) return;
     const x = Math.floor((e.clientX - canvas.getBoundingClientRect().left) / c), col = stacks[x];
