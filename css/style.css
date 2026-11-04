@@ -1332,3 +1332,9 @@ a, button, canvas { -webkit-tap-highlight-color: transparent; }
   .field__labels li { pointer-events: none; }
   .field__labels li:not(.on) { opacity: 0; transform: scale(.7); filter: blur(6px); }
 }
+
+/* phones and tablets: the Play note sits directly under the heading, full width */
+@media (max-width: 960px) {
+  .section-head--play h2, .section-head--play p { grid-column: 1 / -1; max-width: none; white-space: normal; }
+  .section-head--play p { margin: 0; font-size: 16px; line-height: 1.5; text-wrap: pretty; }
+}

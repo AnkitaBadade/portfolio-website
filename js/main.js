@@ -107,8 +107,8 @@ $('[data-experiments]').innerHTML = experiments
     <div class="exp__media">${x.image ? `<img src="${esc(x.image)}" alt="">` : '<canvas aria-hidden="true"></canvas>'}</div>
     <div class="exp__info">
       <h3 class="exp__title">${esc(x.title)}</h3>
-      ${x.status ? `<span class="status status--${status} mono">${esc(x.status)}</span>` : ''}
-      <p class="exp__desc">${esc(x.description)}${x.url ? '' : ' <span class="muted">Link coming soon.</span>'}</p>
+      ${x.url ? `<span class="status status--${status} mono">${esc(x.status)}</span>` : '<span class="status mono">Coming soon</span>'}
+      ${x.url ? `<p class="exp__desc">${esc(x.description)}</p>` : ''}
     </div>
   </${tag}>`;
   })
